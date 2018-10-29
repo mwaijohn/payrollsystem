@@ -1,0 +1,8 @@
+[
+  {
+    "servername":"localhost",
+    "dbname":"_payrolldb",
+    "username":"root",
+    "password":"root"
+  }
+]

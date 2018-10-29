@@ -1,0 +1,21 @@
+.content{
+    display: block !important;
+}
+.row {
+    /* display: block !important; */
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+.head-area{
+    height: 60px !important;
+}
+
+.dashboard-left{
+    height: 1000px;
+}
+.mng-people,.mng-benefits,.mng-payment{
+    margin-left: 40px;
+}
+.dashboard-left{
+    background-color:#020229 !important;
+}
