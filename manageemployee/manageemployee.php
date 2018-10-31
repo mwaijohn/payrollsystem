@@ -1,40 +1,25 @@
 <?php
 
-require_once 'database/db.php';
-require_once 'formulas.php';
-/**
- * @contain functions for managing employess
- */
-interface IEmployees
-{
-  public function registerEmployee($connection,$fname,$mname,$lname,$id,$contact,$krapin,$nhifno,$nssfno,$email,$basicsalary
-,$status,$emptype,$accno,$bankname,$branch,$gender,$department,$startdate,$nextofkin,$kinaddress,$kincontact);
-  // public function register allowances
-  public function allowances($code,$connection,$description,$amount,$taxable);
-  //register departments
-  public static function departments($connection,$code,$name);
+require_once '../database/db.php';
+require_once '../formulas.php';
 
-  //to record all deductions for an employee
-  public function empDeductions($connection,$empno,$description,$amount,$paid);
-}
-
-class ManageEmployee implements IEmployees{
+class ManageEmployee{
 
   // register an employee
   public function __construct(Type $foo = null){}
-    public function registerEmployee($connection,$fname,$mname,$lname,$id,$contact,$krapin,$nhifno,$nssfno,$email,$basicsalary
+    public static function registerEmployee($connection,$fname,$mname,$lname,$id,$contact,$dob,$krapin,$nhifno,$nssfno,$email,$basicsalary
   ,$status,$emptype,$accno,$bankname,$branch,$gender,$department,$startdate,$nextofkin,$kinaddress,$kincontact){
     try {
       //begin transactions
       $connection->beginTransaction();
-      $sql = "INSERT INTO employee (firstname,middlename,lastname,idnumber,contact,krapin,nhifnumber,nssfnumber,email,basicsalary
+      $sql = "INSERT INTO employee (firstname,middlename,lastname,idnumber,contact,dob,krapin,nhifnumber,nssfnumber,email,basicsalary
       ,status,emptype,accountnumber,bankname,bankbranch,gender,department,startdate,nextofkin,nextofkinaddress,nextofkincontact) VALUES(:fname,:mname,:lname,:id,
-      :contact,:krapin,:nhifno,:nssfno,:email,:basicsalary
+      :contact,:dob,:krapin,:nhifno,:nssfno,:email,:basicsalary
       ,:status,:emptype,:accno,:bankname,:branch,:gender,:department,:startdate,
       :nextofkin,:kinaddress,:kincontact)";
       echo $sql;
       $statement = $connection->prepare($sql);
-      $statement->execute(array(':fname' => $fname,':mname'=>$mname,':lname'=>$lname,':id'=>$id,':contact'=>$contact,':krapin'=>$krapin,':nhifno'=>$nhifno,':nssfno'=>$nssfno,
+      $statement->execute(array(':fname' => $fname,':mname'=>$mname,':lname'=>$lname,':id'=>$id,':contact'=>$contact,':dob'=>$dob,':krapin'=>$krapin,':nhifno'=>$nhifno,':nssfno'=>$nssfno,
       ':email'=>$email,':basicsalary'=>$basicsalary,'status'=>$status,':emptype'=>$emptype,':accno'=>$accno,':bankname'=>$bankname,':branch'=>$branch,':gender'=>$gender,':department'=>$department,
       ':startdate'=>$startdate,':nextofkin'=>$nextofkin,':kinaddress'=>$kinaddress,':kincontact'=>$kincontact));
       $connection->commit();
@@ -261,6 +246,25 @@ class ManageEmployee implements IEmployees{
     }
 
   }
+
+  public static function activate($connection,$id){
+    
+    try{
+      $sql = "UPDATE employee SET  startdate=:sdate,status = 1 WHERE idnumber=:id";
+      $stmt = $connection->prepare($sql);
+      $date = date('Y-m-d');
+      $stmt->execute(array(':sdate'=>$date,':id'=>$id));
+      if($stmt->rowCount()>0){
+        echo "syuce";
+        return true;
+      }
+    }catch(\Exception $e){
+      echo $e->getMassage();
+      echo 'dffdf';
+    }
+    echo $date;
+    return false;
+  }
 }
 
 
@@ -281,12 +285,8 @@ $mnge = new ManageEmployee();
 //ManageEmployee::registerDeductions($conn,"1234581","breakages",1080,0);
 //ManageEmployee::assignAllowance($conn,"1234581","009");
 //ManageEmployee::revokeAllowance($conn,"1234581","009");
-ManageEmployee::revokeDeductions($conn,"1234581","breakages");
-
-$empP = new EmployeePayment();
-//EmployeePayment::getGrossPay($conn,"1234569");
-//EmployeePayment::getDeductions($conn,"1234569");
-//EmployeePayment::getAllowances($conn,"1234569")
+//ManageEmployee::revokeDeductions($conn,"1234581","breakages");
+// ManageEmployee::activate($conn,"33175135");
 
 
 

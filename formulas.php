@@ -60,6 +60,13 @@ class Calculate
     return $rates_data;
   }
 
+  static function getNSSF($grosstaxableincome){
+    if($grosstaxableincome<6000){
+      return 0.6 * $grosstaxableincome;
+    }
+    return 1080;
+  }
+
   static function explore($interval,$deductions,$grosstaxableincome,$tax_relief=1408,$initialband=12298){
     //get initial tax
     $initial_tax = 1229.8;

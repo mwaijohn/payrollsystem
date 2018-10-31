@@ -2,7 +2,7 @@
 class Connection{
     static function returnConnection(){
 
-        $conn_config = file_get_contents('resource.json');
+        $conn_config = file_get_contents('../resource.json');
         $config_data = json_decode($conn_config,true);
 
         $servername = "";

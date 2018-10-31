@@ -1,6 +1,6 @@
 <?php
-require_once 'database/db.php';
-require_once 'formulas.php';
+require_once '../database/db.php';
+require_once '../formulas.php';
 
 
 class EmployeePayment{
@@ -48,4 +48,11 @@ class EmployeePayment{
     }
   }
 }
+
+//$empP = new EmployeePayment();
+//EmployeePayment::getGrossPay($conn,"1234569");
+//EmployeePayment::getDeductions($conn,"1234569");
+//EmployeePayment::getAllowances($conn,"1234569")
+
+echo date('Y-m-d');
  ?>

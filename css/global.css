@@ -1,21 +1,50 @@
 .content{
     display: block !important;
 }
+#logo-head{
+    padding-top: 20px !important;
+    padding-left: 20px;
+}
+.head-row{
+    padding-top: 25px;
+}
 .row {
     /* display: block !important; */
     padding-bottom: 0px !important;
     margin-bottom: 0px !important;
 }
 .head-area{
-    height: 60px !important;
+    height: 80px !important;
+    background-color: azure;
+    border-bottom: #020229 solid 1px;
 }
 
 .dashboard-left{
-    height: 1000px;
+    height: 1500px;
+    background-color:#020229 !important;
+    color: white !important;
 }
-.mng-people,.mng-benefits,.mng-payment{
+.mng-people,.mng-benefits,.mng-payment,.mng-deduction {
     margin-left: 40px;
 }
-.dashboard-left{
-    background-color:#020229 !important;
+
+li{
+    list-style: none !important;
+}
+.dashboard-right{
+    justify-content: center !important;
+    display: block !important;
+}
+.field{
+    width: 10% !important;
+}
+.form-row{
+    margin: auto !important;
+    width: 80%;
+}
+.bio{
+    margin-left: 70px;
+}
+.reg{
+    margin-left: 50% !important;
 }
